@@ -35,9 +35,10 @@ namespace EngineApp
         public MIC1(int status)
         {
             InitializeComponent();
+            //loading.Visibility = Visibility.Visible;
             this.type = status;
             initMic(type);
-            
+
         }
 
         private void aecmenuitem_Click(object sender, RoutedEventArgs e)
@@ -49,25 +50,30 @@ namespace EngineApp
 
         private void doamenuitem_Click(object sender, RoutedEventArgs e)
         {
-            menuitem_Click((MenuItem)sender,doamenuitem1,doamenuitem2,doamenuitem3);
-            if (((MenuItem)sender).Header.ToString().Equals("6cm")) {
+            menuitem_Click((MenuItem)sender, doamenuitem1, doamenuitem2, doamenuitem3);
+            if (((MenuItem)sender).Header.ToString().Equals("6cm"))
+            {
                 mic_interval = "0.06";
             }
-            else if (((MenuItem)sender).Header.ToString().Equals("8cm")) {
+            else if (((MenuItem)sender).Header.ToString().Equals("8cm"))
+            {
                 mic_interval = "0.08";
             }
-            else if (((MenuItem)sender).Header.ToString().Equals("10cm")) {
+            else if (((MenuItem)sender).Header.ToString().Equals("10cm"))
+            {
                 mic_interval = "0.1";
             }
         }
 
-        private void beammenuitem_Click(object sender, RoutedEventArgs e) {
+        private void beammenuitem_Click(object sender, RoutedEventArgs e)
+        {
             menuitem_Click((MenuItem)sender, beammenuitem1, beammenuitem2, beammenuitem3);
             select_angle = ((MenuItem)sender).Header.ToString().TrimEnd('°');
         }
 
-        private void aesmenuitemon_Click(object sender, RoutedEventArgs e) {
-            MenuItem nowMenuItem=(MenuItem)sender;
+        private void aesmenuitemon_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem nowMenuItem = (MenuItem)sender;
             nowMenuItem.Foreground = Brushes.Blue;
             if (nowMenuItem.Name.ToLower().EndsWith("on"))
             {
@@ -81,20 +87,23 @@ namespace EngineApp
                 aesstatusbar2.IsEnabled = false;
                 aes_status = false;
             }
-            
+
         }
 
-        private void aesmenuitem_Click(object sender, RoutedEventArgs e) {
+        private void aesmenuitem_Click(object sender, RoutedEventArgs e)
+        {
             menuitem_Click((MenuItem)sender, aesmenuitem1, aesmenuitem2, aesmenuitem3);
             aes_level = ((MenuItem)sender).Header.ToString();
         }
 
-        private void nrmenuitem_Click(object sender, RoutedEventArgs e) {
+        private void nrmenuitem_Click(object sender, RoutedEventArgs e)
+        {
             menuitem_Click((MenuItem)sender, nrmenuitem1, nrmenuitem2, nrmenuitem3);
-            nr_level= ((MenuItem)sender).Header.ToString();
+            nr_level = ((MenuItem)sender).Header.ToString();
         }
 
-        private void agcmenuitemon_Click(object sender, RoutedEventArgs e) {
+        private void agcmenuitemon_Click(object sender, RoutedEventArgs e)
+        {
             MenuItem nowMenuItem = (MenuItem)sender;
             nowMenuItem.Foreground = Brushes.Blue;
             if (nowMenuItem.Name.ToLower().EndsWith("on"))
@@ -109,7 +118,8 @@ namespace EngineApp
             }
         }
 
-        private void drcmenuitemon_Click(object sender, RoutedEventArgs e) {
+        private void drcmenuitemon_Click(object sender, RoutedEventArgs e)
+        {
             MenuItem nowMenuItem = (MenuItem)sender;
             nowMenuItem.Foreground = Brushes.Blue;
             if (nowMenuItem.Name.ToLower().EndsWith("on"))
@@ -126,12 +136,14 @@ namespace EngineApp
             }
         }
 
-        private void drcmenuitem_Click(object sender, RoutedEventArgs e) {
+        private void drcmenuitem_Click(object sender, RoutedEventArgs e)
+        {
             menuitem_Click((MenuItem)sender, drcmenuitem1, drcmenuitem2, drcmenuitem3);
-            gain= ((MenuItem)sender).Header.ToString();
+            gain = ((MenuItem)sender).Header.ToString();
         }
 
-        private void initMic(int type) {
+        private void initMic(int type)
+        {
             if (type == 1)
             {
                 nowimg.Source = new BitmapImage(new Uri(@"img\micflow\omic.png", UriKind.Relative));
@@ -169,7 +181,7 @@ namespace EngineApp
                 menuItem1.Foreground = Brushes.Black;
                 menuItem3.Foreground = Brushes.Black;
             }
-            else if(nowMenuItem.Name.EndsWith("3"))
+            else if (nowMenuItem.Name.EndsWith("3"))
             {
                 menuItem1.Foreground = Brushes.Black;
                 menuItem2.Foreground = Brushes.Black;
@@ -190,24 +202,222 @@ namespace EngineApp
             micSetting.DRC_Gain = gain;
             micSetting.MIC_Type = type.ToString();
             FileHelper fileHelper = new FileHelper();
-            try {
-                fileHelper.CreateMICConf(micSetting, ConfigurationManager.AppSettings["LocalMICConfPath"]);
+            try
+            {
+                fileHelper.CreateMICConf(micSetting, ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"]);
                 MessageBox.Show("Configuration file successfully");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
-        private void downloadbtn_Click(object sender, RoutedEventArgs e)//下载配置文件到机车服务器
+        private async void downloadbtn_Click(object sender, RoutedEventArgs e)//下载配置文件到机车服务器
         {
+            loading.Visibility = Visibility.Visible;
+            FileHelper fileHelper = new FileHelper();
+            await fileHelper.UploadMICConfgToServer(
+                 ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                 ConfigurationManager.AppSettings["ServerConfPath"],
+                 ConfigurationManager.AppSettings["ServerIP"],
+                 ConfigurationManager.AppSettings["ServerPort"],
+                 ConfigurationManager.AppSettings["ServerUser"],
+                 ConfigurationManager.AppSettings["ServerPassword"]
+                 );
 
+            this.HideLoading(false);
         }
 
-        private void uploadbtn_Click(object sender, RoutedEventArgs e)//上传配置文件到机车服务器
+        private async void uploadbtn_Click(object sender, RoutedEventArgs e)//上传配置文件到机车服务器
         {
+            loading.Visibility = Visibility.Visible;
+            FileHelper fileHelper = new FileHelper();
+            await fileHelper.DownLoadMICConfg(
+                ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                ConfigurationManager.AppSettings["ServerIP"],
+                ConfigurationManager.AppSettings["ServerPort"],
+                ConfigurationManager.AppSettings["ServerUser"],
+                ConfigurationManager.AppSettings["ServerPassword"]
+                );
 
+            this.HideLoading(true);
         }
+
+        public void HideLoading(bool flag)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.loading.Visibility = Visibility.Collapsed;
+                if (flag) {
+                    this.refreshConfSet();
+                }
+            });
+        }
+
+        public void refreshConfSet() {
+            FileHelper fileHelper = new FileHelper();
+            MICSetting nowSetting = fileHelper.readMicConfFile(
+                ConfigurationManager.AppSettings["LocalConfPath"],
+                ConfigurationManager.AppSettings["LocalConfFileName"]);
+            if (nowSetting != null)
+            {
+                this.initMic(Convert.ToInt32(nowSetting.MIC_Type));
+                if (nowSetting.AEC_Length.Equals("100"))
+                {
+                    aecmenuitem1.Foreground = Brushes.Blue;
+                    aecmenuitem2.Foreground = Brushes.Black;
+                    aecmenuitem3.Foreground = Brushes.Black;
+                }
+                else if (nowSetting.AEC_Length.Equals("160"))
+                {
+                    aecmenuitem1.Foreground = Brushes.Black;
+                    aecmenuitem2.Foreground = Brushes.Blue;
+                    aecmenuitem3.Foreground = Brushes.Black;
+                }
+                else if (nowSetting.AEC_Length.Equals("200"))
+                {
+                    aecmenuitem1.Foreground = Brushes.Black;
+                    aecmenuitem2.Foreground = Brushes.Black;
+                    aecmenuitem3.Foreground = Brushes.Blue;
+                }
+                if (nowSetting.MIC_Type.Equals("2"))
+                {
+                    if (nowSetting.DOA_MIC_Interval.Equals("0.06"))
+                    {
+                        doamenuitem1.Foreground = Brushes.Blue;
+                        doamenuitem2.Foreground = Brushes.Black;
+                        doamenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.DOA_MIC_Interval.Equals("0.08"))
+                    {
+                        doamenuitem1.Foreground = Brushes.Black;
+                        doamenuitem2.Foreground = Brushes.Blue;
+                        doamenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.DOA_MIC_Interval.Equals("0.1"))
+                    {
+                        doamenuitem1.Foreground = Brushes.Black;
+                        doamenuitem2.Foreground = Brushes.Black;
+                        doamenuitem3.Foreground = Brushes.Blue;
+                    }
+                    if (nowSetting.BF_Select_Angle.Equals("-30"))
+                    {
+                        beammenuitem1.Foreground = Brushes.Blue;
+                        beammenuitem2.Foreground = Brushes.Black;
+                        beammenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.BF_Select_Angle.Equals("-45"))
+                    {
+                        beammenuitem1.Foreground = Brushes.Black;
+                        beammenuitem2.Foreground = Brushes.Blue;
+                        beammenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.BF_Select_Angle.Equals("-60"))
+                    {
+                        beammenuitem1.Foreground = Brushes.Black;
+                        beammenuitem2.Foreground = Brushes.Black;
+                        beammenuitem3.Foreground = Brushes.Blue;
+                    }
+                }
+                if (nowSetting.AES_Status)
+                {
+                    aesmenuitemon.Foreground = Brushes.Blue;
+                    aesmenuitemoff.Foreground = Brushes.Black;
+                    aesstatusbar2.IsEnabled = true;
+                    if (nowSetting.AES_Level.Equals("1"))
+                    {
+                        aesmenuitem1.Foreground = Brushes.Blue;
+                        aesmenuitem2.Foreground = Brushes.Black;
+                        aesmenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.AES_Level.Equals("2"))
+                    {
+                        aesmenuitem1.Foreground = Brushes.Black;
+                        aesmenuitem2.Foreground = Brushes.Blue;
+                        aesmenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.AES_Level.Equals("3"))
+                    {
+                        aesmenuitem1.Foreground = Brushes.Black;
+                        aesmenuitem2.Foreground = Brushes.Black;
+                        aesmenuitem3.Foreground = Brushes.Blue;
+                    }
+                }
+                else
+                {
+                    aesmenuitemon.Foreground = Brushes.Black;
+                    aesmenuitemoff.Foreground = Brushes.Blue;
+                    aesstatusbar2.IsEnabled = false;
+                }
+                if (nowSetting.NR_Level.Equals("1"))
+                {
+                    nrmenuitem1.Foreground = Brushes.Blue;
+                    nrmenuitem2.Foreground = Brushes.Black;
+                    nrmenuitem3.Foreground = Brushes.Black;
+                }
+                else if (nowSetting.NR_Level.Equals("2"))
+                {
+                    nrmenuitem1.Foreground = Brushes.Black;
+                    nrmenuitem2.Foreground = Brushes.Blue;
+                    nrmenuitem3.Foreground = Brushes.Black;
+                }
+                else if (nowSetting.NR_Level.Equals("3"))
+                {
+                    nrmenuitem1.Foreground = Brushes.Black;
+                    nrmenuitem2.Foreground = Brushes.Black;
+                    nrmenuitem3.Foreground = Brushes.Blue;
+                }
+                if (nowSetting.AGC_Status)
+                {
+                    agcmenuitemon.Foreground = Brushes.Blue;
+                    agcmenuitemoff.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    agcmenuitemon.Foreground = Brushes.Black;
+                    agcmenuitemoff.Foreground = Brushes.Blue;
+                }
+                if (nowSetting.DRC_Status)
+                {
+                    drcmenuitemon.Foreground = Brushes.Blue;
+                    drcmenuitemoff.Foreground = Brushes.Black;
+                    drcstatusbar2.IsEnabled = true;
+                    if (nowSetting.DRC_Gain.Equals("4"))
+                    {
+                        drcmenuitem1.Foreground = Brushes.Blue;
+                        drcmenuitem2.Foreground = Brushes.Black;
+                        drcmenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.DRC_Gain.Equals("6"))
+                    {
+                        drcmenuitem1.Foreground = Brushes.Black;
+                        drcmenuitem2.Foreground = Brushes.Blue;
+                        drcmenuitem3.Foreground = Brushes.Black;
+                    }
+                    else if (nowSetting.DRC_Gain.Equals("8"))
+                    {
+                        drcmenuitem1.Foreground = Brushes.Black;
+                        drcmenuitem2.Foreground = Brushes.Black;
+                        drcmenuitem3.Foreground = Brushes.Blue;
+                    }
+                }
+                else
+                {
+                    drcmenuitemon.Foreground = Brushes.Black;
+                    drcmenuitemoff.Foreground = Brushes.Blue;
+                    drcstatusbar2.IsEnabled = false;
+                }
+            }
+            else {
+                MessageBox.Show(
+                    string.Format("\"{0}{1}\"is not exist",
+                    ConfigurationManager.AppSettings["LocalConfPath"], 
+                    ConfigurationManager.AppSettings["LocalConfFileName"]));
+            }
+        }
+
     }
 }

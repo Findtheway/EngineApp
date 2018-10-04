@@ -123,7 +123,11 @@
   <ItemGroup>
     <Resource Include="img\micflow\dmic.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="processer\PSCP.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="config\DoubleMICConf.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

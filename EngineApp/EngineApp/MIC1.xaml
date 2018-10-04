@@ -128,6 +128,25 @@
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="drcmenuitem3" Background="White" FontWeight="Bold" Header="8" Height="32" Padding="-25,0,0,0" Width="48" Click="drcmenuitem_Click"/>
         </StatusBar>
-
+        <Canvas Name="loading" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="120" Margin="366,252,406,247">
+            <Ellipse Width="15" Height="15" Canvas.Left="55" Canvas.Top="31" Stretch="Fill" Fill="#FFD1D1F7" Opacity="1.0"/>
+            <Ellipse Width="15" Height="15" Canvas.Left="38" Canvas.Top="39" Stretch="Fill" Fill="Blue" Opacity="0.8"/>
+            <Ellipse Width="15" Height="15" Canvas.Left="36" Canvas.Top="58" Stretch="Fill" Fill="#FF0000FE" Opacity="0.7"/>
+            <Ellipse Width="15" Height="15" Canvas.Left="52" Canvas.Top="67" Stretch="Fill" Fill="Blue" Opacity="0.6"/>
+            <Ellipse Width="15" Height="15" Canvas.Left="68" Canvas.Top="61" Stretch="Fill" Fill="#FF2E2EFF" Opacity="0.5"/>
+            <Ellipse Width="15" Height="15" Canvas.Left="69" Canvas.Top="42" Stretch="Fill" Fill="#FF6F6FFF" Opacity="0.4"/>
+            <Canvas.RenderTransform>
+                <RotateTransform x:Name="SpinnerRotate" Angle="0" />
+            </Canvas.RenderTransform>
+            <Canvas.Triggers>
+                <EventTrigger RoutedEvent="ContentControl.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="SpinnerRotate" Storyboard.TargetProperty="(RotateTransform.Angle)" From="0" To="360" Duration="0:0:0.8" RepeatBehavior="Forever" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
+        </Canvas>
     </Grid>
 </Window>

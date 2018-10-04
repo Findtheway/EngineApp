@@ -74,10 +74,10 @@ namespace Util
             string user,
             string passWord)
         {
-            StringBuilder sb = new StringBuilder("pscp ");
+            StringBuilder sb = new StringBuilder("");
 
             if (!string.IsNullOrEmpty(port))
-                sb.AppendFormat("-P {0} ", port);
+                sb.AppendFormat("-P {0} -pw {1} ", port, passWord);
 
             if (commandType == CommondType.UpLoad)
             {
@@ -93,7 +93,7 @@ namespace Util
             return sb.ToString();
         }
 
-        public void UploadMICConfgToServer(
+        public Task UploadMICConfgToServer(
             string localConfigPath,
             string serverConfigPath,
             string ip,
@@ -101,10 +101,13 @@ namespace Util
             string user,
             string passWord)
         {
-            this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.UpLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+            return Task.Run(() =>
+            {
+                this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.UpLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+            });
         }
 
-        public void DownLoadMICConfg(
+        public Task DownLoadMICConfg(
             string localConfigPath,
             string serverConfigPath,
             string ip,
@@ -112,21 +115,113 @@ namespace Util
             string user,
             string passWord)
         {
-            this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.DownLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+            return Task.Run(() =>
+            {
+                this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.DownLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+            });
         }
 
         public void ExcutePSCPCommand(string commandArguments)
         {
-            string processPath = AppDomain.CurrentDomain.BaseDirectory + "Processer/PSCP.EXE";
-            System.Diagnostics.ProcessStartInfo processStartInfo = new System.Diagnostics.ProcessStartInfo(processPath);
-            processStartInfo.UseShellExecute = true;
-            processStartInfo.RedirectStandardInput = false;
-            processStartInfo.RedirectStandardOutput = false;
-            processStartInfo.Arguments = commandArguments;
+            string processPath = AppDomain.CurrentDomain.BaseDirectory + "processer/PSCP.EXE";
+            using (System.Diagnostics.Process exep = new System.Diagnostics.Process())
+            {
 
-            System.Diagnostics.Process process = System.Diagnostics.Process.Start(processStartInfo);
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.FileName = processPath;
+                startInfo.Arguments = commandArguments;
+                startInfo.CreateNoWindow = true;
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardInput = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
+                exep.StartInfo = startInfo;
+                exep.Start();
+                exep.WaitForExit();
+            }
+        }
+
+        public MICSetting readMicConfFile(string filePath, string fileName)
+        {
+            MICSetting micSetting = null;
+            if (File.Exists(filePath + fileName)) {
+                micSetting = new MICSetting();
+                FileStream fs = new FileStream(filePath + fileName, FileMode.Open);
+                StreamReader streamReader = new StreamReader(fs);
+                string line = "";
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    if (line.Contains("AECParam"))
+                    {
+                        micSetting.AEC_Length = this.getConfValue(line, 0);
+                    }
+                    else if (line.Contains("BFParam"))
+                    {
+                        micSetting.BF_Select_Angle = this.getConfValue(line, 4);
+                    }
+                    else if (line.Contains("DRCParam"))
+                    {
+                        if (line.StartsWith("//"))
+                        {
+                            micSetting.DRC_Status = false;
+                        }
+                        else
+                        {
+                            micSetting.DRC_Status = true;
+                        }
+                        micSetting.DRC_Gain = this.getConfValue(line, 0);
+                    }
+                    else if (line.Contains("ESParam"))
+                    {
+                        if (line.StartsWith("//"))
+                        {
+                            micSetting.AES_Status = false;
+                        }
+                        else
+                        {
+                            micSetting.AES_Status = true;
+                        }
+                        micSetting.AES_Level = this.getConfValue(line, 0);
+                    }
+                    else if (line.Contains("NRParam"))
+                    {
+                        micSetting.NR_Level = this.getConfValue(line, 0);
+                    }
+                    else if (line.Contains("DOAParam"))
+                    {
+                        micSetting.DOA_MIC_Interval = this.getConfValue(line, 2);
+                    }
+                    else if (line.Contains("AGCParam"))
+                    {
+                        if (line.StartsWith("//"))
+                        {
+                            micSetting.AGC_Status = false;
+                        }
+                        else
+                        {
+                            micSetting.AGC_Status = true;
+                        }
+                    }
+                    else if (line.Contains("MICParam"))
+                    {
+                        micSetting.MIC_Type = this.getConfValue(line, 0);
+                    }
+                }
+                streamReader.Close();
+                fs.Close();
+            }          
+            return micSetting;
+        }
+
+        public string getConfValue(string line,int num) {
+            string value = "";
+            string[] strs1 = line.Split(':');
+            string[] str2 = strs1[1].Split('=');
+            value = str2[1].Trim().TrimStart('[').TrimEnd(']').Split(',')[num];
+            return value;
         }
     }
+
 
     public enum CommondType
     {
