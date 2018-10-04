@@ -1,0 +1,12 @@
+﻿// Mobvoi dsp config file
+// version: 000101 // 0.1.1
+
+AECParam: [echo_len, nu_nlms] = [{0}, 0.8]
+{1}BFParam: [bf_type, channel_num, weight_len, weights_num, select_angle, enable, tolerance, weight_file, beam_width, mu, gama, block_mat_weights_file] = [4, 2, 161, 1, {2}, 1, 10, gsc_fix_45.txt, 15, 0.1, 1, gsc_block_45.txt]
+//DEParam: [history_size, lookahead, use_fixed_delay] = [60, 30, 1]
+{3}DRCParam: [gain, threshold, limit, full_gain_pos] = [{4}, 0.9, 0.99, 0.0]
+{5}ESParam: [level, flag_pre_converge, flag_noise_fill] = [{6}, 0, 1]
+NRParam: [level] = [{7}]
+{8}DOAParam: [doa_type, segment_len, mic_interval] = [1, 400, {9}]
+{10}AGCParam: [init_gain, target_level, min_frame_count, min_energy_count] = [10, -21, 100, 100]
+MICParam: [mic_num]=[{11}]
