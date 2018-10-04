@@ -21,17 +21,20 @@ namespace Util
         {
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
             {
-                sw.Write(content);
+                sw.Write(content);//
             }
         }
 
         public void CreateMICConf(MICSetting settings, string configOutputPath)
         {
-            string templateFilePath = AppDomain.CurrentDomain.BaseDirectory + "config/DoubleMICConf.txt";
+            //配置模板路径
+            string templateFilePath = AppDomain.CurrentDomain.BaseDirectory + "Config/DoubleMICConf.txt";
 
+            //获取配置模板字符串
             string content =
                 this.ReadFile(templateFilePath);
 
+            //获取配置字符串
             content = string.Format(
                 content
                 , settings.AEC_Length
@@ -46,10 +49,24 @@ namespace Util
                 , settings.DOA_MIC_Interval
                 , settings.AGC_Status == true ? string.Empty : "//"
                 , settings.MIC_Type);
+
+            //生成本地配置文件
             this.WriteFile(content, configOutputPath);
         }
 
-        public void UploadToServer(
+        /// <summary>
+        /// 获取调用命令字符串
+        /// </summary>
+        /// <param name="commandType"></param>
+        /// <param name="localConfigPath"></param>
+        /// <param name="serverConfigPath"></param>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
+        /// <param name="user"></param>
+        /// <param name="passWord"></param>
+        /// <returns></returns>
+        public string GetPSCPCommandArgument(
+            CommondType commandType,
             string localConfigPath,
             string serverConfigPath,
             string ip,
@@ -57,21 +74,63 @@ namespace Util
             string user,
             string passWord)
         {
-            string processPath = AppDomain.CurrentDomain.BaseDirectory + "Processer/PSCP.EXE";
-            string argumentTemplate = "pscp {0} {1}@{2}:/{3} {4}";
+            StringBuilder sb = new StringBuilder("pscp ");
 
+            if (!string.IsNullOrEmpty(port))
+                sb.AppendFormat("-P {0} ", port);
+
+            if (commandType == CommondType.UpLoad)
+            {
+                sb.Append(localConfigPath);
+                sb.AppendFormat(" {0}@{1}:{2}", user, ip, serverConfigPath);
+            }
+            else
+            {
+                sb.AppendFormat("{0}@{1}:{2} ", user, ip, serverConfigPath);
+                sb.Append(localConfigPath);
+            }
+
+            return sb.ToString();
+        }
+
+        public void UploadMICConfgToServer(
+            string localConfigPath,
+            string serverConfigPath,
+            string ip,
+            string port,
+            string user,
+            string passWord)
+        {
+            this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.UpLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+        }
+
+        public void DownLoadMICConfg(
+            string localConfigPath,
+            string serverConfigPath,
+            string ip,
+            string port,
+            string user,
+            string passWord)
+        {
+            this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.DownLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+        }
+
+        public void ExcutePSCPCommand(string commandArguments)
+        {
+            string processPath = AppDomain.CurrentDomain.BaseDirectory + "Processer/PSCP.EXE";
             System.Diagnostics.ProcessStartInfo processStartInfo = new System.Diagnostics.ProcessStartInfo(processPath);
             processStartInfo.UseShellExecute = true;
             processStartInfo.RedirectStandardInput = false;
             processStartInfo.RedirectStandardOutput = false;
-            processStartInfo.Arguments = string.Format(argumentTemplate
-                , string.IsNullOrEmpty(port) ? string.Empty : "-P " + port
-                , user
-                , ip
-                , localConfigPath
-                , serverConfigPath);
+            processStartInfo.Arguments = commandArguments;
 
             System.Diagnostics.Process process = System.Diagnostics.Process.Start(processStartInfo);
         }
+    }
+
+    public enum CommondType
+    {
+        UpLoad = 1,
+        DownLoad = 2
     }
 }
