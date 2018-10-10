@@ -25,7 +25,7 @@ namespace Util
             }
         }
 
-        public void CreateMICConf(MICSetting settings, string configOutputPath)
+        public void CreateMICConf(MICSetting settings, string configOutputPath,string fileName)
         {
             //配置模板路径
             string templateFilePath = AppDomain.CurrentDomain.BaseDirectory + "Config/DoubleMICConf.txt";
@@ -42,16 +42,19 @@ namespace Util
                 , settings.BF_Select_Angle
                 , settings.DRC_Status == true ? string.Empty : "//"
                 , settings.DRC_Gain
-                , settings.AES_Status == true ? string.Empty : "//"
+                , settings.AES_Status == true ? "//" : "//"
                 , settings.AES_Level
                 , settings.NR_Level
                 , settings.MIC_Type == "2" ? string.Empty : "//"
                 , settings.DOA_MIC_Interval
-                , settings.AGC_Status == true ? string.Empty : "//"
+                , settings.MIC_Type == "2" ? string.Empty : "//"
                 , settings.MIC_Type);
-
+            
+            if (!Directory.Exists(configOutputPath)) {
+                Directory.CreateDirectory(configOutputPath);
+            }
             //生成本地配置文件
-            this.WriteFile(content, configOutputPath);
+            this.WriteFile(content, System.IO.Path.Combine(configOutputPath,fileName));
         }
 
         /// <summary>
@@ -103,7 +106,9 @@ namespace Util
         {
             return Task.Run(() =>
             {
-                this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.UpLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+                //this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.UpLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+                SCPOperation scp = new SCPOperation(ip, port, user, passWord);
+                scp.Put(localConfigPath, serverConfigPath);
             });
         }
 
@@ -117,7 +122,9 @@ namespace Util
         {
             return Task.Run(() =>
             {
-                this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.DownLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+                //this.ExcutePSCPCommand(this.GetPSCPCommandArgument(CommondType.DownLoad, localConfigPath, serverConfigPath, ip, port, user, passWord));
+                SCPOperation scp = new SCPOperation(ip,port,user,passWord);
+                scp.Get(serverConfigPath, localConfigPath);
             });
         }
 
@@ -191,17 +198,17 @@ namespace Util
                     {
                         micSetting.DOA_MIC_Interval = this.getConfValue(line, 2);
                     }
-                    else if (line.Contains("AGCParam"))
-                    {
-                        if (line.StartsWith("//"))
-                        {
-                            micSetting.AGC_Status = false;
-                        }
-                        else
-                        {
-                            micSetting.AGC_Status = true;
-                        }
-                    }
+                    //else if (line.Contains("AGCParam"))
+                    //{
+                    //    if (line.StartsWith("//"))
+                    //    {
+                    //        micSetting.AGC_Status = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        micSetting.AGC_Status = true;
+                    //    }
+                    //}
                     else if (line.Contains("MICParam"))
                     {
                         micSetting.MIC_Type = this.getConfValue(line, 0);

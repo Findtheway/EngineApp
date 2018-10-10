@@ -151,7 +151,7 @@ namespace EngineApp
                 doastatusbar.IsEnabled = false;
                 beamlable.IsEnabled = false;
                 beamstatusbar.IsEnabled = false;
-
+                
             }
             else if (type == 2)
             {
@@ -159,11 +159,16 @@ namespace EngineApp
                 doamenuitem1.Foreground = Brushes.Blue;
                 beammenuitem1.Foreground = Brushes.Blue;
             }
+            agclable.IsEnabled = false;
+            agcstatusbar.IsEnabled = false;
+            aeslable.IsEnabled = false;
+            aesstatusbar1.IsEnabled = false;
+            aesstatusbar2.IsEnabled = false;
             aecmenuitem1.Foreground = Brushes.Blue;
             aesmenuitemon.Foreground = Brushes.Blue;
             aesmenuitem1.Foreground = Brushes.Blue;
             nrmenuitem1.Foreground = Brushes.Blue;
-            agcmenuitemon.Foreground = Brushes.Blue;
+            //agcmenuitemon.Foreground = Brushes.Blue;
             drcmenuitemon.Foreground = Brushes.Blue;
             drcmenuitem1.Foreground = Brushes.Blue;
         }
@@ -195,7 +200,7 @@ namespace EngineApp
             micSetting.DOA_MIC_Interval = mic_interval;
             micSetting.BF_Select_Angle = select_angle;
             micSetting.AES_Status = aes_status;
-            micSetting.AES_Level = aes_level;
+            micSetting.AES_Level = aesmenuitem3.Header.ToString();
             micSetting.NR_Level = nr_level;
             micSetting.AGC_Status = agc_status;
             micSetting.DRC_Status = drc_status;
@@ -204,7 +209,7 @@ namespace EngineApp
             FileHelper fileHelper = new FileHelper();
             try
             {
-                fileHelper.CreateMICConf(micSetting, ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"]);
+                fileHelper.CreateMICConf(micSetting,System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"cfgfile") , ConfigurationManager.AppSettings["LocalConfFileName"]);
                 MessageBox.Show("Configuration file successfully");
             }
             catch (Exception ex)
@@ -216,34 +221,50 @@ namespace EngineApp
 
         private async void downloadbtn_Click(object sender, RoutedEventArgs e)//下载配置文件到机车服务器
         {
-            loading.Visibility = Visibility.Visible;
-            FileHelper fileHelper = new FileHelper();
-            await fileHelper.UploadMICConfgToServer(
-                 ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
-                 ConfigurationManager.AppSettings["ServerConfPath"],
-                 ConfigurationManager.AppSettings["ServerIP"],
-                 ConfigurationManager.AppSettings["ServerPort"],
-                 ConfigurationManager.AppSettings["ServerUser"],
-                 ConfigurationManager.AppSettings["ServerPassword"]
-                 );
+            try {
+                loading.Visibility = Visibility.Visible;
+                FileHelper fileHelper = new FileHelper();
+                await fileHelper.UploadMICConfgToServer(
+                     System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile", ConfigurationManager.AppSettings["LocalConfFileName"]),
+                     ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                     ConfigurationManager.AppSettings["ServerIP"],
+                     ConfigurationManager.AppSettings["ServerPort"],
+                     ConfigurationManager.AppSettings["ServerUser"],
+                     ConfigurationManager.AppSettings["ServerPassword"]
+                     );
 
-            this.HideLoading(false);
+                this.HideLoading(false);
+                MessageBox.Show("WriteToHU successfully");
+            }
+            catch (Exception ex) {
+                loading.Visibility = Visibility.Hidden;
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private async void uploadbtn_Click(object sender, RoutedEventArgs e)//上传配置文件到机车服务器
         {
-            loading.Visibility = Visibility.Visible;
-            FileHelper fileHelper = new FileHelper();
-            await fileHelper.DownLoadMICConfg(
-                ConfigurationManager.AppSettings["LocalConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
-                ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
-                ConfigurationManager.AppSettings["ServerIP"],
-                ConfigurationManager.AppSettings["ServerPort"],
-                ConfigurationManager.AppSettings["ServerUser"],
-                ConfigurationManager.AppSettings["ServerPassword"]
-                );
+            try {
+                loading.Visibility = Visibility.Visible;
+                FileHelper fileHelper = new FileHelper();
+                await fileHelper.DownLoadMICConfg(
+                    System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile"),
+                    ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                    ConfigurationManager.AppSettings["ServerIP"],
+                    ConfigurationManager.AppSettings["ServerPort"],
+                    ConfigurationManager.AppSettings["ServerUser"],
+                    ConfigurationManager.AppSettings["ServerPassword"]
+                    );
 
-            this.HideLoading(true);
+                this.HideLoading(true);
+                MessageBox.Show("ReadFromHU and test successfully");
+            }
+            catch (Exception ex) {
+                loading.Visibility = Visibility.Hidden;
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         public void HideLoading(bool flag)
@@ -251,8 +272,18 @@ namespace EngineApp
             this.Dispatcher.Invoke(() =>
             {
                 this.loading.Visibility = Visibility.Collapsed;
-                if (flag) {
+                if (flag)
+                {
                     this.refreshConfSet();
+                }
+                else
+                {
+                    SCPOperation.RestartDSP(
+                        ConfigurationManager.AppSettings["ServerIP"],
+                        ConfigurationManager.AppSettings["ServerPort"],
+                        ConfigurationManager.AppSettings["ServerUser"],
+                        ConfigurationManager.AppSettings["ServerPassword"],
+                        this.type);
                 }
             });
         }
@@ -370,16 +401,16 @@ namespace EngineApp
                     nrmenuitem2.Foreground = Brushes.Black;
                     nrmenuitem3.Foreground = Brushes.Blue;
                 }
-                if (nowSetting.AGC_Status)
-                {
-                    agcmenuitemon.Foreground = Brushes.Blue;
-                    agcmenuitemoff.Foreground = Brushes.Black;
-                }
-                else
-                {
-                    agcmenuitemon.Foreground = Brushes.Black;
-                    agcmenuitemoff.Foreground = Brushes.Blue;
-                }
+                //if (nowSetting.AGC_Status)
+                //{
+                //    agcmenuitemon.Foreground = Brushes.Blue;
+                //    agcmenuitemoff.Foreground = Brushes.Black;
+                //}
+                //else
+                //{
+                //    agcmenuitemon.Foreground = Brushes.Black;
+                //    agcmenuitemoff.Foreground = Brushes.Blue;
+                //}
                 if (nowSetting.DRC_Status)
                 {
                     drcmenuitemon.Foreground = Brushes.Blue;
@@ -419,5 +450,11 @@ namespace EngineApp
             }
         }
 
+        private void backbtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close();
+        }
     }
 }
