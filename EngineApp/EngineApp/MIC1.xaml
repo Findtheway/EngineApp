@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineApp"
         mc:Ignorable="d"
-        Title="Diagram" Height="650" Width="900" Icon="img/ico/graymic.png">
+        Title="Diagram" Height="650" Width="900" Icon="img/ico/graymic.png" ResizeMode="CanMinimize">
     <Grid Background="#FFE6E6E6">
         <Canvas HorizontalAlignment="Left" Height="160" Margin="0,3,0,0" VerticalAlignment="Top" Width="892" Background="White">
             <Label Content="|" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" Foreground="#FF0D60C3"/>

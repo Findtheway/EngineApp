@@ -26,7 +26,7 @@ namespace Util
                
             }
             catch (Exception ex) {
-                throw new Exception(string.Format("连接SCP失败，原因：{0}", ex.Message));
+                throw new Exception(string.Format("SCP connection failed，cause：{0}", ex.Message));
             }
         }
 
@@ -39,7 +39,7 @@ namespace Util
                 }
             }
             catch (Exception ex) {
-                throw new Exception(string.Format("断开SCP失败，原因：{0}", ex.Message));
+                throw new Exception(string.Format("Disconnect SCP failure，cause：{0}", ex.Message));
             }
             
         }
@@ -62,7 +62,7 @@ namespace Util
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("SCP文件上传失败，原因：{0}", ex.Message));
+                throw new Exception(string.Format("SCP upload failed，cause：{0}", ex.Message));
             }
         }
         #endregion
@@ -83,7 +83,7 @@ namespace Util
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("SCP文件获取失败，原因：{0}", ex.Message));
+                throw new Exception(string.Format("SCP access file failed，cause：{0}", ex.Message));
             }
         }
         #endregion
