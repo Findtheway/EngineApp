@@ -151,9 +151,9 @@ namespace Util
         public MICSetting readMicConfFile(string filePath, string fileName)
         {
             MICSetting micSetting = null;
-            if (File.Exists(filePath + fileName)) {
+            if (File.Exists(System.IO.Path.Combine(filePath, fileName))) {
                 micSetting = new MICSetting();
-                FileStream fs = new FileStream(filePath + fileName, FileMode.Open);
+                FileStream fs = new FileStream(System.IO.Path.Combine(filePath,fileName), FileMode.Open);
                 StreamReader streamReader = new StreamReader(fs);
                 string line = "";
                 while ((line = streamReader.ReadLine()) != null)

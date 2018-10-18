@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineApp"
         mc:Ignorable="d"
-        Title="Diagram" Height="650" Width="900" Icon="img/ico/graymic.png" ResizeMode="CanMinimize">
-    <Grid Background="#FFE6E6E6">
+        Title="Diagram" Height="695" Width="900" Icon="img/ico/graymic.png" ResizeMode="CanMinimize">
+    <Grid Background="#FFE6E6E6" Margin="0,0,0,-2">
         <Canvas HorizontalAlignment="Left" Height="160" Margin="0,3,0,0" VerticalAlignment="Top" Width="892" Background="White">
             <Label Content="|" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" Foreground="#FF0D60C3"/>
             <Label Content="Diagram" Canvas.Left="32" Canvas.Top="10" FontWeight="Bold"/>
             <Image x:Name="nowimg" Height="92" Canvas.Left="46" Canvas.Top="44" Width="806" Source="img/micflow/dmic.png"/>
         </Canvas>
         <Canvas HorizontalAlignment="Left" Height="100" Margin="210,475,0,0" VerticalAlignment="Top" Width="100"/>
-        <Separator HorizontalAlignment="Left" Height="100" Margin="30,469,0,0" VerticalAlignment="Top" Width="834"/>
-        <Button x:Name="configbtn" Content="Config generating" HorizontalAlignment="Left" Margin="239,542,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="configbtn_Click" RenderTransformOrigin="0.563,0.519">
+        <Separator HorizontalAlignment="Left" Height="100" Margin="30,526,0,0" VerticalAlignment="Top" Width="834"/>
+        <Button x:Name="configbtn" Content="Config generating" HorizontalAlignment="Left" Margin="240,590,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="configbtn_Click" RenderTransformOrigin="0.598,0.99">
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8">
@@ -30,7 +30,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="downloadbtn" Content="WriteToHU" HorizontalAlignment="Left" Margin="453,541,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="downloadbtn_Click">
+        <Button x:Name="downloadbtn" Content="WriteToHU" HorizontalAlignment="Left" Margin="453,592,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="downloadbtn_Click">
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8">
@@ -46,7 +46,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="uploadbtn" Content="ReadFromHU" HorizontalAlignment="Left" Margin="668,540,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="uploadbtn_Click">
+        <Button x:Name="uploadbtn" Content="ReadFromHU" HorizontalAlignment="Left" Margin="670,590,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="uploadbtn_Click">
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border BorderBrush="{TemplateBinding Control.BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8">
@@ -64,64 +64,64 @@
         </Button>
         <Label Content="|" Margin="0,169,867,0" VerticalAlignment="Top" FontWeight="Bold" Height="23" RenderTransformOrigin="1.833,0.696" HorizontalAlignment="Right" Width="14" Foreground="#FF0D60C3"/>
         <Label Content="Setting" HorizontalAlignment="Left" Margin="30,169,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="aeclable" Content="AEC" HorizontalAlignment="Left" Margin="104,225,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="doalable" Content="DOA" HorizontalAlignment="Left" Margin="103,298,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="beamlable" Content="Beamforming" HorizontalAlignment="Left" Margin="52,371,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="aeslable" Content="AES" HorizontalAlignment="Left" Margin="446,224,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="nrlable" Content="NR" HorizontalAlignment="Left" Margin="448,297,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label x:Name="agclable" Content="AGC" HorizontalAlignment="Left" Margin="449,374,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False"/>
-        <Label x:Name="drclable" Content="DRC" HorizontalAlignment="Left" Margin="449,456,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <StatusBar x:Name="aecstatusbar" HorizontalAlignment="Left" Height="36" Margin="160,220,0,0" VerticalAlignment="Top" Width="213" Background="White">
+        <Label x:Name="aeclable" Content="AEC" HorizontalAlignment="Left" Margin="102,354,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="doalable" Content="DOA" HorizontalAlignment="Left" Margin="103,415,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="beamlable" Content="Beamforming" HorizontalAlignment="Left" Margin="52,464,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="aeslable" Content="AES" HorizontalAlignment="Left" Margin="449,355,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="nrlable" Content="NR" HorizontalAlignment="Left" Margin="454,414,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="agclable" Content="AGC" HorizontalAlignment="Left" Margin="449,464,0,0" VerticalAlignment="Top" FontWeight="Bold" IsEnabled="False"/>
+        <Label x:Name="drclable" Content="DRC" HorizontalAlignment="Left" Margin="449,520,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.528,1.72"/>
+        <StatusBar x:Name="aecstatusbar" HorizontalAlignment="Left" Height="36" Margin="158,349,0,0" VerticalAlignment="Top" Width="214" Background="White">
             <MenuItem x:Name="aecmenuitem1" Background="White" FontWeight="Bold" Header="100" HorizontalAlignment="Left" Height="33" UseLayoutRounding="False" VerticalAlignment="Top" Width="61.5" FlowDirection="RightToLeft" Padding="-20,0,0,0" Click="aecmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="aecmenuitem2" Background="White" FontWeight="Bold" Header="160" Height="33" Padding="-25,0,0,0" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" FlowDirection="RightToLeft" Click="aecmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="aecmenuitem3" Background="White" FontWeight="Bold" Header="200" Height="32" Padding="-25,0,0,0" Width="58" Click="aecmenuitem_Click"/>
         </StatusBar>
-        <StatusBar x:Name="doastatusbar" HorizontalAlignment="Left" Height="36" Margin="158,292,0,0" VerticalAlignment="Top" Width="215" Background="White">
+        <StatusBar x:Name="doastatusbar" HorizontalAlignment="Left" Height="36" Margin="158,409,0,0" VerticalAlignment="Top" Width="215" Background="White">
             <MenuItem x:Name="doamenuitem1" Background="White" FontWeight="Bold" Header="6cm" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="60.5" Click="doamenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="doamenuitem2" Background="White" FontWeight="Bold" Header="8cm" Height="33" Padding="-25,0,0,0" Width="56" Click="doamenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="doamenuitem3" Background="White" FontWeight="Bold" Header="10cm" Height="32" Padding="-20,0,0,0" Width="104" RenderTransformOrigin="0.508,0.391" Click="doamenuitem_Click"/>
         </StatusBar>
-        <StatusBar x:Name="beamstatusbar" HorizontalAlignment="Left" Height="36" Margin="156,369,0,0" VerticalAlignment="Top" Width="217" Background="White">
+        <StatusBar x:Name="beamstatusbar" HorizontalAlignment="Left" Height="36" Margin="156,459,0,0" VerticalAlignment="Top" Width="217" Background="White">
             <MenuItem x:Name="beammenuitem1" Background="White" FontWeight="Bold" Header="-30°" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="59" Click="beammenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="beammenuitem2" Background="White" FontWeight="Bold" Header="-45°" Height="33" Padding="-25,0,0,0" Width="62" Click="beammenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="beammenuitem3" Background="White" FontWeight="Bold" Header="-60°" Height="32" Padding="-25,0,0,0" Width="71" Click="beammenuitem_Click"/>
         </StatusBar>
-        <StatusBar x:Name="aesstatusbar1" HorizontalAlignment="Left" Height="36" Margin="487,218,0,0" VerticalAlignment="Top" Width="129" Background="White">
+        <StatusBar x:Name="aesstatusbar1" HorizontalAlignment="Left" Height="36" Margin="496,349,0,0" VerticalAlignment="Top" Width="129" Background="White">
             <MenuItem x:Name="aesmenuitemon" Background="White" FontWeight="Bold" Header="ON" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="55.5" Click="aesmenuitemon_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="aesmenuitemoff" Background="White" FontWeight="Bold" Header="OFF" Height="32" Padding="-25,0,0,0" Width="60" Click="aesmenuitemon_Click"/>
         </StatusBar>
-        <StatusBar x:Name="nrstatusbar" HorizontalAlignment="Left" Height="36" Margin="486,289,0,0" VerticalAlignment="Top" Width="172" Background="White">
+        <StatusBar x:Name="nrstatusbar" HorizontalAlignment="Left" Height="36" Margin="495,409,0,0" VerticalAlignment="Top" Width="172" Background="White">
             <MenuItem x:Name="nrmenuitem1" Background="White" FontWeight="Bold" Header="1" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="nrmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="nrmenuitem2" Background="White" FontWeight="Bold" Header="2" Height="33" Padding="-25,0,0,0" Width="50" Click="nrmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="nrmenuitem3" Background="White" FontWeight="Bold" Header="3" Height="32" Padding="-25,0,0,0" Width="48" Click="nrmenuitem_Click"/>
         </StatusBar>
-        <StatusBar x:Name="agcstatusbar" HorizontalAlignment="Left" Height="36" Margin="490,369,0,0" VerticalAlignment="Top" Width="130" Background="White" IsEnabled="False">
+        <StatusBar x:Name="agcstatusbar" HorizontalAlignment="Left" Height="36" Margin="493,459,0,0" VerticalAlignment="Top" Width="130" Background="White" IsEnabled="False">
             <MenuItem x:Name="agcmenuitemon" Background="White" FontWeight="Bold" Header="ON" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="agcmenuitemon_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="agcmenuitemoff" Background="White" FontWeight="Bold" Header="OFF" Height="33" Padding="-25,0,0,0" Width="51" Click="agcmenuitemon_Click" IsEnabled="False"/>
         </StatusBar>
-        <StatusBar x:Name="drcstatusbar1" HorizontalAlignment="Left" Height="36" Margin="489,448,0,0" VerticalAlignment="Top" Width="131" Background="White">
+        <StatusBar x:Name="drcstatusbar1" HorizontalAlignment="Left" Height="36" Margin="494,514,0,0" VerticalAlignment="Top" Width="130" Background="White">
             <MenuItem x:Name="drcmenuitemon" Background="White" FontWeight="Bold" Header="ON" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="56" Click="drcmenuitemon_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="drcmenuitemoff" Background="White" FontWeight="Bold" Header="OFF" Height="33" Padding="-25,0,0,0" Width="42" Click="drcmenuitemon_Click"/>
         </StatusBar>
-        <StatusBar x:Name="aesstatusbar2" HorizontalAlignment="Left" Height="36" Margin="658,216,0,0" VerticalAlignment="Top" Width="192" Background="White">
+        <StatusBar x:Name="aesstatusbar2" HorizontalAlignment="Left" Height="36" Margin="660,348,0,0" VerticalAlignment="Top" Width="192" Background="White">
             <MenuItem x:Name="aesmenuitem1" Background="White" FontWeight="Bold" Header="1" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="aesmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="aesmenuitem2" Background="White" FontWeight="Bold" Header="2" Height="33" Padding="-25,0,0,0" Width="57" Click="aesmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
             <MenuItem x:Name="aesmenuitem3" Background="White" FontWeight="Bold" Header="3" Height="32" Padding="-25,0,0,0" Width="48" Click="aesmenuitem_Click"/>
         </StatusBar>
-        <StatusBar x:Name="drcstatusbar2" HorizontalAlignment="Left" Height="36" Margin="666,445,0,0" VerticalAlignment="Top" Width="187" Background="White">
+        <StatusBar x:Name="drcstatusbar2" HorizontalAlignment="Left" Height="36" Margin="660,513,0,0" VerticalAlignment="Top" Width="187" Background="White">
             <MenuItem x:Name="drcmenuitem1" Background="White" FontWeight="Bold" Header="4" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="drcmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="drcmenuitem2" Background="White" FontWeight="Bold" Header="6" Height="33" Padding="-25,0,0,0" Width="52" Click="drcmenuitem_Click"/>
@@ -148,7 +148,7 @@
                 </EventTrigger>
             </Canvas.Triggers>
         </Canvas>
-        <Button x:Name="backbtn" Content="BackToMain" HorizontalAlignment="Left" Margin="22,542,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="backbtn_Click">
+        <Button x:Name="backbtn" Content="BackToMain" HorizontalAlignment="Left" Margin="26,590,0,0" VerticalAlignment="Top" Width="200" Height="52" Background="#66B3FF" BorderThickness="1" FontSize="18" Foreground="#FFF5ECEC" Click="backbtn_Click">
             <Button.Template >
                 <ControlTemplate TargetType="{x:Type Button}" >
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="8,8,8,8">
@@ -164,5 +164,16 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Label x:Name="ServerIP" Content="ServerIP" HorizontalAlignment="Left" Margin="85,216,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="ServerUser" Content="ServerUser" HorizontalAlignment="Left" Margin="487,215,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="ServerPWD" Content="ServerPWD" HorizontalAlignment="Left" Margin="688,217,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="ServerConfPath" Content="ServerConfPath" HorizontalAlignment="Left" Margin="45,256,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Separator HorizontalAlignment="Left" Height="76" Margin="38,274,0,0" VerticalAlignment="Top" Width="834"/>
+        <TextBox x:Name="ServerIPText" HorizontalAlignment="Left" Height="26" Margin="156,214,0,0" TextWrapping="Wrap" Text="192.168.1.4" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.567,0.37" FontSize="16"/>
+        <Label x:Name="ServerPort" Content="ServerPort" HorizontalAlignment="Left" Margin="303,216,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="ServerPortText" HorizontalAlignment="Left" Height="26" Margin="400,215,0,0" TextWrapping="Wrap" Text="22" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.567,0.37" FontSize="16"/>
+        <TextBox x:Name="ServerUserText" HorizontalAlignment="Left" Height="26" Margin="583,216,0,0" TextWrapping="Wrap" Text="root" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.567,0.37" FontSize="16"/>
+        <TextBox x:Name="ServerPWDText" HorizontalAlignment="Left" Height="26" Margin="781,216,0,0" TextWrapping="Wrap" Text="root" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.567,0.37" FontSize="16"/>
+        <TextBox x:Name="ServerConfPathText" HorizontalAlignment="Left" Height="26" Margin="158,257,0,0" TextWrapping="Wrap" Text="/var/speech/dsp_config/" VerticalAlignment="Top" Width="402" RenderTransformOrigin="0.567,0.37" FontSize="16"/>
     </Grid>
 </Window>

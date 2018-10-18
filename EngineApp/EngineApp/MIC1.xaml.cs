@@ -31,6 +31,11 @@ namespace EngineApp
         private bool agc_status = true;
         private bool drc_status = true;
         private string gain = "4";
+        private string serverIp = "192.168.1.4";
+        private string serverPort = "22";
+        private string serverUser = "root";
+        private string serverPWD = "root";
+        private string serverConfPath = "/var/speech/dsp_config/";
 
         public MIC1(int status)
         {
@@ -224,13 +229,22 @@ namespace EngineApp
             try {
                 loading.Visibility = Visibility.Visible;
                 FileHelper fileHelper = new FileHelper();
+                //await fileHelper.UploadMICConfgToServer(
+                //     System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile", ConfigurationManager.AppSettings["LocalConfFileName"]),
+                //     ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                //     ConfigurationManager.AppSettings["ServerIP"],
+                //     ConfigurationManager.AppSettings["ServerPort"],
+                //     ConfigurationManager.AppSettings["ServerUser"],
+                //     ConfigurationManager.AppSettings["ServerPassword"]
+                //     );
+                setServerConf();
                 await fileHelper.UploadMICConfgToServer(
                      System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile", ConfigurationManager.AppSettings["LocalConfFileName"]),
-                     ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
-                     ConfigurationManager.AppSettings["ServerIP"],
-                     ConfigurationManager.AppSettings["ServerPort"],
-                     ConfigurationManager.AppSettings["ServerUser"],
-                     ConfigurationManager.AppSettings["ServerPassword"]
+                     serverConfPath + ConfigurationManager.AppSettings["LocalConfFileName"],
+                     serverIp,
+                     serverPort,
+                     serverUser,
+                     serverPWD
                      );
 
                 this.HideLoading(false);
@@ -248,13 +262,22 @@ namespace EngineApp
             try {
                 loading.Visibility = Visibility.Visible;
                 FileHelper fileHelper = new FileHelper();
+                setServerConf();
+                //await fileHelper.DownLoadMICConfg(
+                //    System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile"),
+                //    ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
+                //    ConfigurationManager.AppSettings["ServerIP"],
+                //    ConfigurationManager.AppSettings["ServerPort"],
+                //    ConfigurationManager.AppSettings["ServerUser"],
+                //    ConfigurationManager.AppSettings["ServerPassword"]
+                //    );
                 await fileHelper.DownLoadMICConfg(
                     System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile"),
-                    ConfigurationManager.AppSettings["ServerConfPath"] + ConfigurationManager.AppSettings["LocalConfFileName"],
-                    ConfigurationManager.AppSettings["ServerIP"],
-                    ConfigurationManager.AppSettings["ServerPort"],
-                    ConfigurationManager.AppSettings["ServerUser"],
-                    ConfigurationManager.AppSettings["ServerPassword"]
+                    serverConfPath + ConfigurationManager.AppSettings["LocalConfFileName"],
+                    serverIp,
+                    serverPort,
+                    serverUser,
+                    serverPWD
                     );
 
                 this.HideLoading(true);
@@ -279,10 +302,10 @@ namespace EngineApp
                 else
                 {
                     SCPOperation.RestartDSP(
-                        ConfigurationManager.AppSettings["ServerIP"],
-                        ConfigurationManager.AppSettings["ServerPort"],
-                        ConfigurationManager.AppSettings["ServerUser"],
-                        ConfigurationManager.AppSettings["ServerPassword"],
+                        serverIp,
+                        serverPort,
+                        serverUser,
+                        serverPWD,
                         this.type);
                 }
             });
@@ -291,7 +314,7 @@ namespace EngineApp
         public void refreshConfSet() {
             FileHelper fileHelper = new FileHelper();
             MICSetting nowSetting = fileHelper.readMicConfFile(
-                ConfigurationManager.AppSettings["LocalConfPath"],
+                System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile"),
                 ConfigurationManager.AppSettings["LocalConfFileName"]);
             if (nowSetting != null)
             {
@@ -445,7 +468,7 @@ namespace EngineApp
             else {
                 MessageBox.Show(
                     string.Format("\"{0}{1}\"is not exist",
-                    ConfigurationManager.AppSettings["LocalConfPath"], 
+                    System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cfgfile"), 
                     ConfigurationManager.AppSettings["LocalConfFileName"]));
             }
         }
@@ -455,6 +478,28 @@ namespace EngineApp
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void setServerConf() {
+            if (!string.IsNullOrEmpty(ServerIPText.Text)) {
+                serverIp = ServerIPText.Text;
+            }
+            if (!string.IsNullOrEmpty(ServerPortText.Text))
+            {
+                serverPort = ServerPortText.Text;
+            }
+            if (!string.IsNullOrEmpty(ServerUserText.Text))
+            {
+                serverUser = ServerUserText.Text;
+            }
+            if (!string.IsNullOrEmpty(ServerPWDText.Text))
+            {
+                serverPWD = ServerPWDText.Text;
+            }
+            if (!string.IsNullOrEmpty(ServerConfPathText.Text))
+            {
+                serverConfPath = ServerConfPathText.Text;
+            }
         }
     }
 }
