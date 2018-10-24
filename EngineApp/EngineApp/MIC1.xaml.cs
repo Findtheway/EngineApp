@@ -134,6 +134,8 @@ namespace EngineApp
                 drcmenuitemoff.Background = Brushes.White;
                 drcstatusbar2.IsEnabled = true;
                 drc_status = true;
+                drcmenuitem1.Foreground = Brushes.Blue;
+                drcmenuitem1.Background = Brushes.LightBlue;
             }
             else
             {
