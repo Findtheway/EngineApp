@@ -76,7 +76,7 @@
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="aecmenuitem2" Background="White" FontWeight="Bold" Header="160" Height="33" Padding="-25,0,0,0" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" FlowDirection="RightToLeft" Click="aecmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
-            <MenuItem x:Name="aecmenuitem3" Background="White" FontWeight="Bold" Header="200" Height="32" Padding="-25,0,0,0" Width="58" Click="aecmenuitem_Click"/>
+            <MenuItem x:Name="aecmenuitem3" Background="White" FontWeight="Bold" Header="200" Height="32" Padding="-25,0,0,0" Width="66" Click="aecmenuitem_Click"/>
         </StatusBar>
         <StatusBar x:Name="doastatusbar" HorizontalAlignment="Left" Height="36" Margin="158,409,0,0" VerticalAlignment="Top" Width="215" Background="White">
             <MenuItem x:Name="doamenuitem1" Background="White" FontWeight="Bold" Header="6cm" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="60.5" Click="doamenuitem_Click"/>
@@ -112,21 +112,21 @@
         <StatusBar x:Name="drcstatusbar1" HorizontalAlignment="Left" Height="36" Margin="494,514,0,0" VerticalAlignment="Top" Width="130" Background="White">
             <MenuItem x:Name="drcmenuitemon" Background="White" FontWeight="Bold" Header="ON" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="56" Click="drcmenuitemon_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
-            <MenuItem x:Name="drcmenuitemoff" Background="White" FontWeight="Bold" Header="OFF" Height="33" Padding="-25,0,0,0" Width="42" Click="drcmenuitemon_Click"/>
+            <MenuItem x:Name="drcmenuitemoff" Background="White" FontWeight="Bold" Header="OFF" Height="33" Padding="-25,0,0,0" Width="57" Click="drcmenuitemon_Click"/>
         </StatusBar>
         <StatusBar x:Name="aesstatusbar2" HorizontalAlignment="Left" Height="36" Margin="660,348,0,0" VerticalAlignment="Top" Width="192" Background="White">
             <MenuItem x:Name="aesmenuitem1" Background="White" FontWeight="Bold" Header="1" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="aesmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="aesmenuitem2" Background="White" FontWeight="Bold" Header="2" Height="33" Padding="-25,0,0,0" Width="57" Click="aesmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
-            <MenuItem x:Name="aesmenuitem3" Background="White" FontWeight="Bold" Header="3" Height="32" Padding="-25,0,0,0" Width="48" Click="aesmenuitem_Click"/>
+            <MenuItem x:Name="aesmenuitem3" Background="White" FontWeight="Bold" Header="3" Height="32" Padding="-25,0,0,0" Width="56" Click="aesmenuitem_Click"/>
         </StatusBar>
         <StatusBar x:Name="drcstatusbar2" HorizontalAlignment="Left" Height="36" Margin="660,513,0,0" VerticalAlignment="Top" Width="187" Background="White">
             <MenuItem x:Name="drcmenuitem1" Background="White" FontWeight="Bold" Header="4" HorizontalAlignment="Left" Height="33" Padding="-25,0,0,0" UseLayoutRounding="False" VerticalAlignment="Top" Width="50" Click="drcmenuitem_Click"/>
             <Separator Background="#FFE8E3E3" IsEnabled="True"/>
             <MenuItem x:Name="drcmenuitem2" Background="White" FontWeight="Bold" Header="6" Height="33" Padding="-25,0,0,0" Width="52" Click="drcmenuitem_Click"/>
             <Separator Background="#FFE8E3E3"/>
-            <MenuItem x:Name="drcmenuitem3" Background="White" FontWeight="Bold" Header="8" Height="32" Padding="-25,0,0,0" Width="48" Click="drcmenuitem_Click"/>
+            <MenuItem x:Name="drcmenuitem3" Background="White" FontWeight="Bold" Header="8" Height="32" Padding="-25,0,0,0" Width="56" Click="drcmenuitem_Click"/>
         </StatusBar>
         <Canvas Name="loading" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="120" Margin="366,252,406,247">
             <Ellipse Width="15" Height="15" Canvas.Left="55" Canvas.Top="31" Stretch="Fill" Fill="#FFD1D1F7" Opacity="1.0"/>

@@ -29,7 +29,9 @@ namespace EngineApp
         private void menuitem1_Click(object sender, RoutedEventArgs e)
         {
             menuitem1.Foreground = Brushes.Blue;
+            menuitem1.Background = Brushes.LightBlue;
             menuitem2.Foreground = Brushes.Black;
+            menuitem2.Background = Brushes.White;
             status = 1;
         }
 
@@ -44,7 +46,9 @@ namespace EngineApp
         private void menuitem2_Click(object sender, RoutedEventArgs e)
         {
             menuitem1.Foreground = Brushes.Black;
+            menuitem1.Background = Brushes.White;
             menuitem2.Foreground = Brushes.Blue;
+            menuitem2.Background = Brushes.LightBlue;
             status = 2;
         }
     }

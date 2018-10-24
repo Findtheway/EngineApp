@@ -127,15 +127,24 @@ namespace EngineApp
         {
             MenuItem nowMenuItem = (MenuItem)sender;
             nowMenuItem.Foreground = Brushes.Blue;
+            nowMenuItem.Background = Brushes.LightBlue;
             if (nowMenuItem.Name.ToLower().EndsWith("on"))
             {
                 drcmenuitemoff.Foreground = Brushes.Black;
+                drcmenuitemoff.Background = Brushes.White;
                 drcstatusbar2.IsEnabled = true;
                 drc_status = true;
             }
             else
             {
                 drcmenuitemon.Foreground = Brushes.Black;
+                drcmenuitemon.Background = Brushes.White;
+                drcmenuitem1.Foreground = Brushes.Black;
+                drcmenuitem1.Background = Brushes.White;
+                drcmenuitem2.Foreground = Brushes.Black;
+                drcmenuitem2.Background = Brushes.White;
+                drcmenuitem3.Foreground = Brushes.Black;
+                drcmenuitem3.Background = Brushes.White;
                 drcstatusbar2.IsEnabled = false;
                 drc_status = false;
             }
@@ -162,7 +171,9 @@ namespace EngineApp
             {
                 nowimg.Source = new BitmapImage(new Uri(@"img\micflow\dmic.png", UriKind.Relative));
                 doamenuitem1.Foreground = Brushes.Blue;
+                doamenuitem1.Background = Brushes.LightBlue;
                 beammenuitem1.Foreground = Brushes.Blue;
+                beammenuitem1.Background = Brushes.LightBlue;
             }
             agclable.IsEnabled = false;
             agcstatusbar.IsEnabled = false;
@@ -170,31 +181,44 @@ namespace EngineApp
             aesstatusbar1.IsEnabled = false;
             aesstatusbar2.IsEnabled = false;
             aecmenuitem1.Foreground = Brushes.Blue;
+            aecmenuitem1.Background = Brushes.LightBlue;
             aesmenuitemon.Foreground = Brushes.Blue;
+            //aesmenuitemon.Background = Brushes.LightBlue;
             aesmenuitem1.Foreground = Brushes.Blue;
+            //aesmenuitem1.Background = Brushes.LightBlue;
             nrmenuitem1.Foreground = Brushes.Blue;
+            nrmenuitem1.Background = Brushes.LightBlue;
             //agcmenuitemon.Foreground = Brushes.Blue;
             drcmenuitemon.Foreground = Brushes.Blue;
+            drcmenuitemon.Background = Brushes.LightBlue;
             drcmenuitem1.Foreground = Brushes.Blue;
+            drcmenuitem1.Background = Brushes.LightBlue;
         }
 
         private void menuitem_Click(MenuItem nowMenuItem, MenuItem menuItem1, MenuItem menuItem2, MenuItem menuItem3)
         {
             nowMenuItem.Foreground = Brushes.Blue;
+            nowMenuItem.Background = Brushes.LightBlue;
             if (nowMenuItem.Name.EndsWith("1"))
             {
                 menuItem2.Foreground = Brushes.Black;
+                menuItem2.Background = Brushes.White;
                 menuItem3.Foreground = Brushes.Black;
+                menuItem3.Background = Brushes.White;
             }
             else if (nowMenuItem.Name.EndsWith("2"))
             {
                 menuItem1.Foreground = Brushes.Black;
+                menuItem1.Background = Brushes.White;
                 menuItem3.Foreground = Brushes.Black;
+                menuItem3.Background = Brushes.White;
             }
             else if (nowMenuItem.Name.EndsWith("3"))
             {
                 menuItem1.Foreground = Brushes.Black;
+                menuItem1.Background = Brushes.White;
                 menuItem2.Foreground = Brushes.Black;
+                menuItem2.Background = Brushes.White;
             }
         }
 
@@ -322,107 +346,162 @@ namespace EngineApp
                 if (nowSetting.AEC_Length.Equals("100"))
                 {
                     aecmenuitem1.Foreground = Brushes.Blue;
+                    aecmenuitem1.Background = Brushes.LightBlue;
                     aecmenuitem2.Foreground = Brushes.Black;
+                    aecmenuitem2.Background = Brushes.White;
                     aecmenuitem3.Foreground = Brushes.Black;
+                    aecmenuitem3.Background = Brushes.White;
                 }
                 else if (nowSetting.AEC_Length.Equals("160"))
                 {
                     aecmenuitem1.Foreground = Brushes.Black;
+                    aecmenuitem1.Background = Brushes.White;
                     aecmenuitem2.Foreground = Brushes.Blue;
+                    aecmenuitem2.Background = Brushes.LightBlue;
                     aecmenuitem3.Foreground = Brushes.Black;
+                    aecmenuitem3.Background = Brushes.White;
                 }
                 else if (nowSetting.AEC_Length.Equals("200"))
                 {
                     aecmenuitem1.Foreground = Brushes.Black;
+                    aecmenuitem1.Background = Brushes.White;
                     aecmenuitem2.Foreground = Brushes.Black;
+                    aecmenuitem2.Background = Brushes.White;
                     aecmenuitem3.Foreground = Brushes.Blue;
+                    aecmenuitem3.Background = Brushes.LightBlue;
                 }
                 if (nowSetting.MIC_Type.Equals("2"))
                 {
                     if (nowSetting.DOA_MIC_Interval.Equals("0.06"))
                     {
                         doamenuitem1.Foreground = Brushes.Blue;
+                        doamenuitem1.Background = Brushes.LightBlue;
                         doamenuitem2.Foreground = Brushes.Black;
+                        doamenuitem2.Background = Brushes.White;
                         doamenuitem3.Foreground = Brushes.Black;
+                        doamenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.DOA_MIC_Interval.Equals("0.08"))
                     {
                         doamenuitem1.Foreground = Brushes.Black;
+                        doamenuitem1.Background = Brushes.White;
                         doamenuitem2.Foreground = Brushes.Blue;
+                        doamenuitem2.Background = Brushes.LightBlue;
                         doamenuitem3.Foreground = Brushes.Black;
+                        doamenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.DOA_MIC_Interval.Equals("0.1"))
                     {
                         doamenuitem1.Foreground = Brushes.Black;
+                        doamenuitem1.Background = Brushes.White;
                         doamenuitem2.Foreground = Brushes.Black;
+                        doamenuitem2.Background = Brushes.White;
                         doamenuitem3.Foreground = Brushes.Blue;
+                        doamenuitem3.Background = Brushes.LightBlue;
                     }
                     if (nowSetting.BF_Select_Angle.Equals("-30"))
                     {
                         beammenuitem1.Foreground = Brushes.Blue;
+                        beammenuitem1.Background = Brushes.LightBlue;
                         beammenuitem2.Foreground = Brushes.Black;
+                        beammenuitem2.Background = Brushes.White;
                         beammenuitem3.Foreground = Brushes.Black;
+                        beammenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.BF_Select_Angle.Equals("-45"))
                     {
                         beammenuitem1.Foreground = Brushes.Black;
+                        beammenuitem1.Background = Brushes.White;
                         beammenuitem2.Foreground = Brushes.Blue;
+                        beammenuitem2.Background = Brushes.LightBlue;
                         beammenuitem3.Foreground = Brushes.Black;
+                        beammenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.BF_Select_Angle.Equals("-60"))
                     {
                         beammenuitem1.Foreground = Brushes.Black;
+                        beammenuitem1.Background = Brushes.White;
                         beammenuitem2.Foreground = Brushes.Black;
+                        beammenuitem2.Background = Brushes.White;
                         beammenuitem3.Foreground = Brushes.Blue;
+                        beammenuitem3.Background = Brushes.LightBlue;
                     }
                 }
                 if (nowSetting.AES_Status)
                 {
                     aesmenuitemon.Foreground = Brushes.Blue;
+                    aesmenuitemon.Background = Brushes.LightBlue;
                     aesmenuitemoff.Foreground = Brushes.Black;
+                    aesmenuitemoff.Background = Brushes.White;
                     aesstatusbar2.IsEnabled = true;
                     if (nowSetting.AES_Level.Equals("1"))
                     {
                         aesmenuitem1.Foreground = Brushes.Blue;
+                        aesmenuitem1.Background = Brushes.LightBlue;
                         aesmenuitem2.Foreground = Brushes.Black;
+                        aesmenuitem2.Background = Brushes.White;
                         aesmenuitem3.Foreground = Brushes.Black;
+                        aesmenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.AES_Level.Equals("2"))
                     {
                         aesmenuitem1.Foreground = Brushes.Black;
+                        aesmenuitem1.Background = Brushes.White;
                         aesmenuitem2.Foreground = Brushes.Blue;
+                        aesmenuitem2.Background = Brushes.LightBlue;
                         aesmenuitem3.Foreground = Brushes.Black;
+                        aesmenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.AES_Level.Equals("3"))
                     {
                         aesmenuitem1.Foreground = Brushes.Black;
+                        aesmenuitem1.Background = Brushes.White;
                         aesmenuitem2.Foreground = Brushes.Black;
+                        aesmenuitem2.Background = Brushes.White;
                         aesmenuitem3.Foreground = Brushes.Blue;
+                        aesmenuitem3.Background = Brushes.LightBlue;
                     }
                 }
                 else
                 {
                     aesmenuitemon.Foreground = Brushes.Black;
+                    aesmenuitemon.Background = Brushes.White;
                     aesmenuitemoff.Foreground = Brushes.Blue;
+                    aesmenuitemoff.Background = Brushes.LightBlue;
                     aesstatusbar2.IsEnabled = false;
+                    aesmenuitem1.Foreground = Brushes.Black;
+                    aesmenuitem1.Background = Brushes.White;
+                    aesmenuitem2.Foreground = Brushes.Black;
+                    aesmenuitem2.Background = Brushes.White;
+                    aesmenuitem3.Foreground = Brushes.Black;
+                    aesmenuitem3.Background = Brushes.White;
                 }
                 if (nowSetting.NR_Level.Equals("1"))
                 {
                     nrmenuitem1.Foreground = Brushes.Blue;
+                    nrmenuitem1.Background = Brushes.LightBlue;
                     nrmenuitem2.Foreground = Brushes.Black;
+                    nrmenuitem2.Background = Brushes.White;
                     nrmenuitem3.Foreground = Brushes.Black;
+                    nrmenuitem3.Background = Brushes.White;
                 }
                 else if (nowSetting.NR_Level.Equals("2"))
                 {
                     nrmenuitem1.Foreground = Brushes.Black;
+                    nrmenuitem1.Background = Brushes.White;
                     nrmenuitem2.Foreground = Brushes.Blue;
+                    nrmenuitem2.Background = Brushes.LightBlue;
                     nrmenuitem3.Foreground = Brushes.Black;
+                    nrmenuitem3.Background = Brushes.White;
                 }
                 else if (nowSetting.NR_Level.Equals("3"))
                 {
                     nrmenuitem1.Foreground = Brushes.Black;
+                    nrmenuitem1.Background = Brushes.White;
                     nrmenuitem2.Foreground = Brushes.Black;
+                    nrmenuitem2.Background = Brushes.White;
                     nrmenuitem3.Foreground = Brushes.Blue;
+                    nrmenuitem3.Background = Brushes.LightBlue;
                 }
                 //if (nowSetting.AGC_Status)
                 //{
@@ -437,32 +516,51 @@ namespace EngineApp
                 if (nowSetting.DRC_Status)
                 {
                     drcmenuitemon.Foreground = Brushes.Blue;
+                    drcmenuitemon.Background = Brushes.LightBlue;
                     drcmenuitemoff.Foreground = Brushes.Black;
+                    drcmenuitemoff.Background = Brushes.White;
                     drcstatusbar2.IsEnabled = true;
                     if (nowSetting.DRC_Gain.Equals("4"))
                     {
                         drcmenuitem1.Foreground = Brushes.Blue;
+                        drcmenuitem1.Background = Brushes.LightBlue;
                         drcmenuitem2.Foreground = Brushes.Black;
+                        drcmenuitem2.Background = Brushes.White;
                         drcmenuitem3.Foreground = Brushes.Black;
+                        drcmenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.DRC_Gain.Equals("6"))
                     {
                         drcmenuitem1.Foreground = Brushes.Black;
+                        drcmenuitem1.Background = Brushes.White;
                         drcmenuitem2.Foreground = Brushes.Blue;
+                        drcmenuitem2.Background = Brushes.LightBlue;
                         drcmenuitem3.Foreground = Brushes.Black;
+                        drcmenuitem3.Background = Brushes.White;
                     }
                     else if (nowSetting.DRC_Gain.Equals("8"))
                     {
                         drcmenuitem1.Foreground = Brushes.Black;
+                        drcmenuitem1.Background = Brushes.White;
                         drcmenuitem2.Foreground = Brushes.Black;
+                        drcmenuitem2.Background = Brushes.White;
                         drcmenuitem3.Foreground = Brushes.Blue;
+                        drcmenuitem3.Background = Brushes.LightBlue;
                     }
                 }
                 else
                 {
                     drcmenuitemon.Foreground = Brushes.Black;
+                    drcmenuitemon.Background = Brushes.White;
                     drcmenuitemoff.Foreground = Brushes.Blue;
+                    drcmenuitemoff.Background = Brushes.LightBlue;
                     drcstatusbar2.IsEnabled = false;
+                    drcmenuitem1.Foreground = Brushes.Black;
+                    drcmenuitem1.Background = Brushes.White;
+                    drcmenuitem2.Foreground = Brushes.Black;
+                    drcmenuitem2.Background = Brushes.White;
+                    drcmenuitem3.Foreground = Brushes.Black;
+                    drcmenuitem3.Background = Brushes.White;
                 }
             }
             else {
